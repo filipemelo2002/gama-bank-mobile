@@ -1,10 +1,11 @@
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding: 30px;
+  padding: 30px 30px ${Platform.OS === 'android' ? 120 : 40}px;
 `;
 
 export const Content = styled.View`

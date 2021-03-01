@@ -14,7 +14,9 @@ const SignIn: React.FC = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       enabled
     >
-      <ScrollView style={{paddingTop: StatusBar.currentHeight }}>
+      <ScrollView style={{ paddingTop: StatusBar.currentHeight }}
+        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+      >
         <Container>
           <Image source={logoGamaBank} />
           <Content>
