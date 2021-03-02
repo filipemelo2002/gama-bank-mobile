@@ -39,6 +39,9 @@ const Dashboard: React.FC = () => {
             return <Icon name={iconName} size={24} color="#FFF" />
           }
         })}
+        sceneContainerStyle={{
+          backgroundColor: '#8C52E5',
+        }}
         tabBarOptions={{
           inactiveTintColor: '#FFF',
           activeTintColor: '#FFF',
@@ -51,9 +54,9 @@ const Dashboard: React.FC = () => {
           },
           style: {
             backgroundColor: '#68DE5A',
-            borderTopLeftRadius: 19,
-            borderTopRightRadius: 19,
-            marginTop: -19,
+            borderTopWidth: 0,
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
             height: 100,
             paddingBottom: 20,
           }
