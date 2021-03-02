@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
 
 import Home from './Home';
+import Extract from './Extract';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,16 +17,16 @@ const Dashboard: React.FC = () => {
             let iconName;
 
             switch(route.name){
-              case 'Home':
+              case 'home':
                 iconName = 'home';
                 break;
-              case 'transactions':
+              case 'transfer':
                 iconName = 'repeat';
                 break;
               case 'extract':
                 iconName = 'file-text';
                 break;
-              case 'save':
+              case 'deposit':
                 iconName = 'dollar-sign';
                 break;
               case 'plans':
@@ -62,10 +63,10 @@ const Dashboard: React.FC = () => {
           }
         }}
       >
-        <Tab.Screen name="Home" component={Home} options={{tabBarLabel: 'Início'}} />
-        <Tab.Screen name="transactions" component={Home} options={{tabBarLabel: 'Transações'}} />
-        <Tab.Screen name="extract" component={Home} options={{tabBarLabel: 'Lançamentos'}} />
-        <Tab.Screen name="save" component={Home} options={{tabBarLabel: 'Depositar'}} />
+        <Tab.Screen name="home" component={Home} options={{tabBarLabel: 'Início'}} />
+        <Tab.Screen name="transfer" component={Home} options={{tabBarLabel: 'Transferir'}} />
+        <Tab.Screen name="extract" component={Extract} options={{tabBarLabel: 'Lançamentos'}} />
+        <Tab.Screen name="deposit" component={Home} options={{tabBarLabel: 'Depositar'}} />
         <Tab.Screen name="plans" component={Home} options={{tabBarLabel: 'Planos'}} />
       </Tab.Navigator>
     </NavigationContainer>
