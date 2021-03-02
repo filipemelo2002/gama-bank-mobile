@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { View } from 'react-native';
 
-import SignIn from './src/screens/SignIn';
+import Routes from './src/Routes';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#8C52E5' }}>
-      <SignIn />
+      <Routes />
       <StatusBar style="auto" />
     </View>
   );
