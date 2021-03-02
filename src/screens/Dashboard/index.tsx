@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import Home from './Home';
 import Extract from './Extract';
+import Transfer from './Transfer';
 
 const Tab = createBottomTabNavigator();
 
@@ -64,7 +65,7 @@ const Dashboard: React.FC = () => {
         }}
       >
         <Tab.Screen name="home" component={Home} options={{tabBarLabel: 'Início'}} />
-        <Tab.Screen name="transfer" component={Home} options={{tabBarLabel: 'Transferir'}} />
+        <Tab.Screen name="transfer" component={Transfer} options={{tabBarLabel: 'Transferir'}} />
         <Tab.Screen name="extract" component={Extract} options={{tabBarLabel: 'Lançamentos'}} />
         <Tab.Screen name="deposit" component={Home} options={{tabBarLabel: 'Depositar'}} />
         <Tab.Screen name="plans" component={Home} options={{tabBarLabel: 'Planos'}} />
