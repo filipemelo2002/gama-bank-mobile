@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { StatusBar } from 'react-native';
 import { KeyboardAvoidingView, ScrollView, Platform, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import { 
@@ -18,6 +19,15 @@ import logoGamaBank from '../../images/gamabank.png';
 // import SignUpSuccess from '../../components/SignUpSuccess';
 
 const SignUp: React.FC = () => {
+  const navigator = useNavigation()
+
+  const handleSubmit = useCallback(() => {
+    navigator.navigate('signin');
+  }, []);
+
+  const handleGoBack = useCallback(() => {
+    navigator.navigate('signin');
+  }, []);  
 
   return (
     <>
@@ -48,11 +58,11 @@ const SignUp: React.FC = () => {
               <InputContainer>
                 <Input placeholder="Confirme sua senha" />
               </InputContainer>
-              <Button>
+              <Button onPress={handleSubmit}>
                 <ButtonText>Continuar</ButtonText>
                 <Icon name="arrow-right" size={24} color="#9B9B9B" />
               </Button>
-              <Link>
+              <Link onPress={handleGoBack}>
                 <Icon name="chevron-left" size={12} color="#8C52E5" />
                 <LinkText>Voltar para login</LinkText>
               </Link>
