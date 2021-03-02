@@ -21,8 +21,7 @@ const SignIn: React.FC = () => {
   const navigator = useNavigation()
 
   const handleSubmit = useCallback(() => {
-    // navigator.navigate('dashboard');
-    alert('dashboard');
+    navigator.navigate('dashboard');
   }, []);
 
   const handleRecoveryPassword = useCallback(() => {

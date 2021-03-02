@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import SignIn from '../screens/SignIn';
 import SignUp from '../screens/SignUp';
 import RecoveryPassword from '../screens/RecoveryPassword';
+import Dashboard from '../screens/Dashboard';
 
 const { Navigator, Screen } = createStackNavigator(); 
 
@@ -30,6 +31,10 @@ export default function Routes() {
         <Screen 
           name="recoverypassword"
           component={RecoveryPassword}
+        />
+        <Screen 
+          name="dashboard"
+          component={Dashboard}
         />
       </Navigator>
     </NavigationContainer>
