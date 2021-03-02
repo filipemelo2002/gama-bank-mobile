@@ -7,6 +7,7 @@ import Home from './Home';
 import Extract from './Extract';
 import Transfer from './Transfer';
 import Deposit from './Deposit';
+import Plans from './Plans';
 
 const Tab = createBottomTabNavigator();
 
@@ -69,7 +70,7 @@ const Dashboard: React.FC = () => {
         <Tab.Screen name="transfer" component={Transfer} options={{tabBarLabel: 'Transferir'}} />
         <Tab.Screen name="extract" component={Extract} options={{tabBarLabel: 'Lançamentos'}} />
         <Tab.Screen name="deposit" component={Deposit} options={{tabBarLabel: 'Depositar'}} />
-        <Tab.Screen name="plans" component={Home} options={{tabBarLabel: 'Planos'}} />
+        <Tab.Screen name="plans" component={Plans} options={{tabBarLabel: 'Planos'}} />
       </Tab.Navigator>
     </NavigationContainer>
   );
