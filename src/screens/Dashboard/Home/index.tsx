@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { StatusBar } from 'react-native';
 import { KeyboardAvoidingView, ScrollView, Platform, View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -16,8 +16,6 @@ import {
   DividerHorizontal,
   DividerVertical,
 } from './style';
-
-import logoGamaBank from '../../images/gamabank.png';
 
 const SignIn: React.FC = () => {
 
