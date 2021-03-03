@@ -17,7 +17,7 @@ import {
   DividerVertical,
 } from './style';
 
-const SignIn: React.FC = () => {
+const Home: React.FC = () => {
 
   return (
     <KeyboardAvoidingView
@@ -74,4 +74,4 @@ const SignIn: React.FC = () => {
   );
 }
 
-export default SignIn;
+export default Home;
