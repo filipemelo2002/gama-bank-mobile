@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
@@ -8,10 +8,14 @@ import Extract from './Extract';
 import Transfer from './Transfer';
 import Deposit from './Deposit';
 import Plans from './Plans';
+import { LoginContext } from '../../contexts/LoginContext';
 
 const Tab = createBottomTabNavigator();
 
 const Dashboard: React.FC = () => {
+  const { user } = useContext(LoginContext);
+
+  console.log(user);
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
