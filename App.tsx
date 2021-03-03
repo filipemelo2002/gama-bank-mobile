@@ -4,6 +4,8 @@ import { useFonts } from 'expo-font';
 import { View } from 'react-native';
 
 import Routes from './src/Routes';
+import { LoginProvider } from './src/contexts/LoginContext';
+import { ModalProvider } from './src/contexts/ModalContext';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -17,8 +19,12 @@ export default function App() {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#8C52E5' }}>
-      <Routes />
-      <StatusBar style="auto" />
+      <LoginProvider>
+        <ModalProvider>
+          <Routes />
+          <StatusBar style="auto" />
+        </ModalProvider>
+      </LoginProvider>
     </View>
   );
 }

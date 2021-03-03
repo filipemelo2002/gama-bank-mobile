@@ -22,21 +22,7 @@ interface IInformationTextProps {
 export const Container = styled.View`
   flex: 1;
   align-items: center;
-  padding: 60px 30px 40px;
-`;
-
-export const Header = styled.View`
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 48px;
-`;
-
-export const Title = styled.Text`
-  font-size: 26px;
-  font-family: 'Roboto-Medium';
-  color: #FBFBFB;
+  padding: 0 30px 40px;
 `;
 
 export const Content = styled.View`

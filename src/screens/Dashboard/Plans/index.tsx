@@ -5,8 +5,6 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import { 
   Container,
-  Header,
-  Title,
   Content,
   HeaderContent,
   HeaderTitle,
@@ -31,10 +29,6 @@ const Plans: React.FC = () => {
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
       >
        <Container>
-          <Header>
-            <Title>Olá, usuário</Title>
-            <Icon name="user" size={33} color="#FFF" />
-          </Header>
           <Content>
             <HeaderContent>
               <Icon name="book" size={16} color="#9B9B9B" />

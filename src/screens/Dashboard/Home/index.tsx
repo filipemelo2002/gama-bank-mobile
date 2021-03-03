@@ -5,8 +5,6 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import { 
   Container,
-  Header,
-  Title,
   Content,
   HeaderContent,
   HeaderTitle,
@@ -17,7 +15,7 @@ import {
   DividerVertical,
 } from './style';
 
-const SignIn: React.FC = () => {
+const Home: React.FC = () => {
 
   return (
     <KeyboardAvoidingView
@@ -29,10 +27,6 @@ const SignIn: React.FC = () => {
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
       >
        <Container>
-          <Header>
-            <Title>Olá, usuário</Title>
-            <Icon name="user" size={33} color="#FFF" />
-          </Header>
           <Content>
             <HeaderContent>
               <Icon name="dollar-sign" size={16} color="#9B9B9B" />
@@ -74,4 +68,4 @@ const SignIn: React.FC = () => {
   );
 }
 
-export default SignIn;
+export default Home;
