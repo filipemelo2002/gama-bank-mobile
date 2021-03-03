@@ -4,22 +4,6 @@ import React, { createContext, ReactNode, useContext, useState } from 'react'
 import api from '../services/api';
 import { LoginContext } from './LoginContext';
 
-interface IPlansData {
-  id: number,
-  descricao: string,
-  login: string,
-  tipoMovimento: 'R' | 'D',
-}
-
-interface IPlansContextData {
-  plans: IPlansData[];
-  plansCount: number;
-  getPlans: () => Promise<void>,
-}
-
-interface IDashboardProviderProps{
-  children: ReactNode;
-}
 
 export const DashboardContext = createContext({});
 export const PlansContext = createContext({} as IPlansContextData);
