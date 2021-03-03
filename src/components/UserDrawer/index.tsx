@@ -1,6 +1,4 @@
-import React from 'react';
-import { StatusBar } from 'react-native';
-import { KeyboardAvoidingView, ScrollView, Platform, View, Text } from 'react-native';
+import React, { useContext, useEffect } from 'react';
 import {
   Container,
   DrawerContainer,
@@ -11,36 +9,51 @@ import {
   Divider,
 } from './style';
 import Icon from 'react-native-vector-icons/Feather';
+import { ModalContext } from '../../contexts/ModalContext';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { LoginContext } from '../../contexts/LoginContext';
+import { PlansContext } from '../../contexts/DashboardContext';
 
 
 const UserDrawer: React.FC = () => {
+  const { closeModal } = useContext(ModalContext);
+  const { user } = useContext(LoginContext);
+  const { plansCount, getPlans } = useContext(PlansContext);
+  const usuario = user.usuario;
+
+  useEffect(() => {
+    getPlans();
+  }, []);
+
   return (
     <Container>
       <DrawerContainer>
         <DrawerHeader>
           <Icon name="user" size={33} color="#8C52E5" /> 
-          <Icon name="x" size={33} color="#8C52E5" />            
+          <TouchableOpacity onPress={closeModal}>
+            <Icon name="x" size={33} color="#8C52E5" />
+          </TouchableOpacity>
         </DrawerHeader>
         <TextContainer>
           <Label>Seu nome:</Label>
-          <UserInfoText>Nome do Usuário</UserInfoText>
+          <UserInfoText>{usuario.nome}</UserInfoText>
         </TextContainer>
         <TextContainer>
           <Label>Email:</Label>
-          <UserInfoText>email@email.com</UserInfoText>
+          <UserInfoText>{usuario.login}@gamabank.com</UserInfoText>
         </TextContainer>
         <TextContainer>
           <Label>Username:</Label>
-          <UserInfoText>username</UserInfoText>
+          <UserInfoText>{usuario.login}</UserInfoText>
         </TextContainer>
         <TextContainer>
           <Label>CPF:</Label>
-          <UserInfoText>000.000.000-00</UserInfoText>
+          <UserInfoText>{String(usuario.cpf).replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</UserInfoText>
         </TextContainer>
         <Divider />
         <TextContainer>
           <Label>Você tem</Label>
-          <UserInfoText>4 planos de conta</UserInfoText>
+          <UserInfoText>{plansCount} planos de conta</UserInfoText>
         </TextContainer>
       </DrawerContainer>
     </Container>
