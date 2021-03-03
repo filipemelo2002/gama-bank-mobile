@@ -16,7 +16,6 @@ import {
   LinkText } from './style';
 
 import logoGamaBank from '../../images/gamabank.png';
-import api from '../../services/api';
 import { LoginContext } from '../../contexts/LoginContext';
 
 const SignIn: React.FC = () => {
@@ -93,6 +92,7 @@ const SignIn: React.FC = () => {
               <InputContainer>
                 <Input 
                   placeholder="Digite seu usuário" 
+                  autoCapitalize="none"
                   value={username} 
                   onChangeText={text => setUsername(text)}
                 />
@@ -100,6 +100,7 @@ const SignIn: React.FC = () => {
               <InputContainer>
                 <Input 
                   placeholder="Digite sua senha" 
+                  autoCapitalize="none"
                   secureTextEntry={true}
                   value={password} 
                   onChangeText={text => setPassword(text)}
