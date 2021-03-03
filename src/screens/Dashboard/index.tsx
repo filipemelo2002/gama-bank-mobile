@@ -13,11 +13,13 @@ import UserDrawer from '../../components/UserDrawer';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ModalContext } from '../../contexts/ModalContext';
 import { DashboardProvider } from '../../contexts/DashboardContext';
+import { LoginContext } from '../../contexts/LoginContext';
 
 const Tab = createBottomTabNavigator();
 
 const Dashboard: React.FC = () => {
   const { isModalOpen, openModal } = useContext(ModalContext);
+  const { user } = useContext(LoginContext);
 
   return (
     <>
@@ -25,7 +27,7 @@ const Dashboard: React.FC = () => {
       {isModalOpen && <UserDrawer />}
       <Container>
         <Header>
-          <Title>Olá, usuário</Title>
+          <Title>Olá, {user.usuario.nome}</Title>
           <TouchableOpacity onPress={openModal}>
             <Icon name="user" size={33} color="#FFF" />
           </TouchableOpacity>
