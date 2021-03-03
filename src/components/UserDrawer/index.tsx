@@ -11,15 +11,13 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import { ModalContext } from '../../contexts/ModalContext';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { LoginContext } from '../../contexts/LoginContext';
 import { PlansContext } from '../../contexts/DashboardContext';
-
+import {useSelector} from 'react-redux'
 
 const UserDrawer: React.FC = () => {
   const { closeModal } = useContext(ModalContext);
-  const { user } = useContext(LoginContext);
+  const { usuario } = useSelector((state:State)=> state.auth)
   const { plansCount, getPlans } = useContext(PlansContext);
-  const usuario = user.usuario;
 
   useEffect(() => {
     getPlans();

@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { View } from 'react-native';
-
+import Toast from 'react-native-toast-message'
 import Routes from './src/Routes';
 import { ModalProvider } from './src/contexts/ModalContext';
 
@@ -21,6 +21,7 @@ export default function App() {
         <ModalProvider>
           <Routes />
           <StatusBar style="auto" />
+          <Toast ref={(ref) => Toast.setRef(ref)} />
         </ModalProvider>
     </View>
   );

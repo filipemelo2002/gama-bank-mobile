@@ -2,8 +2,8 @@ import React, { useCallback, useState } from 'react';
 import { ActivityIndicator, StatusBar } from 'react-native';
 import { KeyboardAvoidingView, ScrollView, Platform, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/Feather';
+
 
 import { 
   Container, 
@@ -18,44 +18,30 @@ import {
 
 import logoGamaBank from '../../images/gamabank.png';
 import { maskCPF } from '../../utils/masks';
-import api from '../../services/api';
 import SignUpSuccess from '../../components/SignUpSuccess';
-
+import { showError } from '../../services/showToast';
+import { useSelector, useDispatch } from 'react-redux'
+import * as Api from '../../api/login'
 const SignUp: React.FC = () => {
+  const dispatch = useDispatch()
   const [cpf,setCpf] = useState('');
   const [username,setUsername] = useState('');
   const [name,setName] = useState('');
   const [password,setPassword] = useState('');
   const [confirmPassword,setConfirmPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [isOk, setIsOk] = useState(false);
-
+  const [loading, setLoading] = useState(false)
   const navigator = useNavigation()
 
   async function handleSubmit() {
-    setIsLoading(true);
 
     if (cpf === '' || name === '' || username === '' || password === '') {
-      Toast.show({
-        type: 'error',
-        text1: '',
-        text2: 'Preencha corretamente os campos',
-        topOffset: 60,
-      });
-
-      setIsLoading(false);
+      showError("Por favor, preencha todos os campos!")
       return;
     }
 
     if (password !== confirmPassword) {
-      Toast.show({
-        type: 'error',
-        text1: '',
-        text2: 'Senhas não coincidem.',
-        topOffset: 60,
-      });
-      
-      setIsLoading(false);
+      showError("Senhas não coincidem...")
       return;
     }
 
@@ -67,28 +53,22 @@ const SignUp: React.FC = () => {
     };
 
     try{
-      await api.post('usuarios', postData);
+      setLoading(true)
+      await Api.signUp(postData)
       setIsOk(true);
       setCpf('');
       setUsername('');
       setName('');
       setPassword('');
       setConfirmPassword('');
-      setIsLoading(false);
       setTimeout(() => {
         setIsOk(true);
         navigator.navigate('signin');
       }, 1000);
     }catch(err){
-      Toast.show({
-        type: 'error',
-        text1: '',
-        text2: 'Ocorreu um erro tente novamente mais tarde',
-      });
-      setIsLoading(false);
+      
     }
-
-    setIsLoading(false);
+    setLoading(false)
   }
 
   const handleGoBack = useCallback(() => {
@@ -157,8 +137,8 @@ const SignUp: React.FC = () => {
                     onChangeText={text => setConfirmPassword(text)}
                   />
                 </InputContainer>
-                <Button onPress={handleSubmit} disabled={isLoading}>
-                  {isLoading 
+                <Button onPress={handleSubmit} disabled={loading}>
+                  {loading 
                     ? (<ActivityIndicator size="small" color="#8C52E5" style={{flex: 1, alignSelf: 'center'}} />) 
                     : (
                       <>
@@ -181,7 +161,6 @@ const SignUp: React.FC = () => {
           
         </ScrollView>
       </KeyboardAvoidingView>
-      <Toast ref={(ref) => Toast.setRef(ref)} />
     </>
   );
 }

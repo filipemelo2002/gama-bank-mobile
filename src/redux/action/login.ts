@@ -26,3 +26,21 @@ export const signIn = (data: IPostData) => {
     }
   }
 }
+
+export const forgotPassword = ({ userName, password }: ForgotPasswordData) => {
+  return async (dispatch: Redux.Dispatch): Promise<void> => {
+    try {
+      dispatch<AuthPending>({ type: `${TEMPLATE_NAME}_PENDING` });
+      await Api.forgotPassword({ userName, password });
+      dispatch<AuthChangePassword>({
+        type: `${TEMPLATE_NAME}_CHANGE_PASSWORD`,
+        payload: password,
+      });
+    } catch (error) {
+      dispatch<AuthRejected>({
+        type: `${TEMPLATE_NAME}_REJECTED`,
+        payload: error,
+      });
+    }
+  };
+};
