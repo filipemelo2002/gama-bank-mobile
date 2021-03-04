@@ -33,5 +33,5 @@ interface PlanningTransactionData {
   descricao: string;
   login: string;
   planoConta: number;
-  valor: number;
+  valor: string;
 }
