@@ -3,7 +3,7 @@ import { StatusBar } from 'react-native';
 import { KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useDispatch, useSelector } from 'react-redux';
-import { showError } from '../../../services/showToast';
+import { showError, showSuccess } from '../../../services/showToast';
 import * as Creators from '../../../redux/action/planning';
 
 import { 
@@ -56,20 +56,24 @@ const Deposit: React.FC = () => {
     setValue('');
 
     const planDefault = plans?.find(plan => plan.tipoMovimento === 'R');
-
-
     
-    await dispatch(
-      Creators.transaction({
-        conta: account.contaBanco.id,
-        contaDestino: login,
-        data: new Date(Date.now()).toISOString().split('T')[0],
-        descricao: description,
-        valor: formatValue,
-        login,
-        planoConta: 3357,
-      }),
-    );
+    if(planDefault?.id){
+      showSuccess('Deposito realizado.')
+      await dispatch(
+        Creators.transaction({
+          conta: account.contaBanco.id,
+          contaDestino: login,
+          data: new Date(Date.now()).toISOString().split('T')[0],
+          descricao: description,
+          valor: formatValue,
+          login,
+          planoConta: planDefault.id,
+        }),
+      );
+    } else {
+      showError('Ocorreu um erro tente novamente mais tarde');
+    }
+
 
   };
 
