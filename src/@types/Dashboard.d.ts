@@ -7,8 +7,6 @@ interface IPlansData {
 
 interface IPlansContextData {
   plans: IPlansData[];
-  plansCount: number;
-  getPlans: () => Promise<void>,
 }
 
 interface IDashboardProviderProps{
@@ -41,7 +39,20 @@ interface IAccountData {
   };
 }
 
-interface IDashboardState extends IAccountData {
+interface IDashboardState extends IAccountData, IPlansContextData {
   loading: boolean;
   error: boolean;
 }
+
+
+interface IDashboardPlansSuccess {
+  type: string;
+  payload: IPlansData[];
+}
+
+interface IDashboardPending {
+  type: string;
+  payload?: undefined | string;
+}
+
+type IDashboardRejected = IDashboardPending;

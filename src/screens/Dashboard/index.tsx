@@ -22,7 +22,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-    <DashboardProvider>
       {isModalOpen && <UserDrawer />}
       <Container>
         <Header>
@@ -92,7 +91,6 @@ const Dashboard: React.FC = () => {
         <Tab.Screen name="plans" component={Plans} options={{tabBarLabel: 'Planos'}} />
       </Tab.Navigator>
     </NavigationContainer>
-    </DashboardProvider>
     </>
   );
 }

@@ -11,16 +11,16 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import { ModalContext } from '../../contexts/ModalContext';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { PlansContext } from '../../contexts/DashboardContext';
-import {useSelector} from 'react-redux'
-
+import {useSelector, useDispatch} from 'react-redux'
+import * as Creators from '../../redux/action/dashboard'
 const UserDrawer: React.FC = () => {
+  const dispatch = useDispatch()
   const { closeModal } = useContext(ModalContext);
   const { usuario } = useSelector((state:State)=> state.auth)
-  const { plansCount, getPlans } = useContext(PlansContext);
+  const {plans} = useSelector((state:State)=>  state.dashboard)
 
   useEffect(() => {
-    getPlans();
+    dispatch(Creators.getPlans(usuario.login))
   }, []);
 
   return (
@@ -51,7 +51,7 @@ const UserDrawer: React.FC = () => {
         <Divider />
         <TextContainer>
           <Label>Você tem</Label>
-          <UserInfoText>{plansCount} planos de conta</UserInfoText>
+          <UserInfoText>{plans.length} planos de conta</UserInfoText>
         </TextContainer>
       </DrawerContainer>
     </Container>

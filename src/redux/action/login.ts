@@ -1,6 +1,6 @@
 import Redux from 'redux'
 import * as Api from '../../api/login'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export const TEMPLATE_NAME = "LOGIN"
 
 export const pending = () => ({
@@ -17,6 +17,7 @@ export const signIn = (data: IPostData) => {
     try {
       dispatch<AuthPending>(pending())
       const response = await Api.signIn(data)
+      await AsyncStorage.setItem('@Gamabank:Token', response.token)
       dispatch<AuthSuccess>({
         type: `${TEMPLATE_NAME}_SUCCESS`,
         payload: response

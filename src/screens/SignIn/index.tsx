@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, StatusBar, KeyboardAvoidingView, ScrollView, Platform, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
@@ -55,6 +55,11 @@ const SignIn: React.FC = () => {
     navigator.navigate('signup');
   }, []);
 
+  useEffect(()=>{
+    if(token.length>0){
+      navigator.navigate('dashboard');
+    }
+  }, [token])
   return (
     <>
       <KeyboardAvoidingView
