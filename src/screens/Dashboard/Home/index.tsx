@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { ActivityIndicator, RefreshControl, StatusBar } from 'react-native';
+import { RefreshControl, StatusBar } from 'react-native';
 import { KeyboardAvoidingView, ScrollView, Platform, View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {useSelector, useDispatch} from 'react-redux'
@@ -18,10 +18,9 @@ import {
   DividerVertical,
 } from './style';
 import * as Creators from '../../../redux/action/dashboard'
-import { getMonthName } from '../../../utils/getDate';
 const Home: React.FC = () => {
   const disptach = useDispatch()
-  const { usuario,  dataInicio, dataFim } = useSelector((state:State)=> state.auth)
+  const { usuario } = useSelector((state:State)=> state.auth)
   const { loading, contaBanco, contaCredito, plans } = useSelector((state:State)=>state.dashboard)
   function formatPrice(value:number) {
     
@@ -119,7 +118,7 @@ const Home: React.FC = () => {
               contaBanco.lancamentos.map(lancamento => (
                 <BalanceDetails key={String(lancamento.id)}>
                   <DividerVertical />
-                  <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>- {formatPrice(lancamento.valor)}</BalanceText>
+                  <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>{formatPrice(lancamento.valor)}</BalanceText>
                   <InformationText>{lancamento.data}</InformationText>
                 </BalanceDetails>
               ))
@@ -129,7 +128,7 @@ const Home: React.FC = () => {
               contaCredito.lancamentos.map(lancamento => (
                 <BalanceDetails key={String(lancamento.id)}>
                   <DividerVertical />
-                  <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>- {formatPrice(lancamento.valor)}</BalanceText>
+                  <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>{formatPrice(lancamento.valor)}</BalanceText>
                   <InformationText>{lancamento.data}</InformationText>
                 </BalanceDetails>
               ))

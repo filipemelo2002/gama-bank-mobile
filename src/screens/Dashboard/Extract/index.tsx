@@ -42,7 +42,7 @@ const Extract: React.FC = () => {
             {
               contaBanco.lancamentos.map(lancamento => (
                 <BalanceDetails key={String(lancamento.id)}>
-                  <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>- {formatPrice(lancamento.valor)}</BalanceText>
+                  <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>{formatPrice(lancamento.valor)}</BalanceText>
                   <InformationText>{lancamento.data}</InformationText>
                   <DividerVertical />
                 </BalanceDetails>
@@ -52,7 +52,7 @@ const Extract: React.FC = () => {
             {
               contaCredito.lancamentos.map(lancamento => (
                 <BalanceDetails key={String(lancamento.id)}>
-                  <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>- {formatPrice(lancamento.valor)}</BalanceText>
+                  <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>{formatPrice(lancamento.valor)}</BalanceText>
                   <InformationText>{lancamento.data}</InformationText>
                   <DividerVertical />
                 </BalanceDetails>
