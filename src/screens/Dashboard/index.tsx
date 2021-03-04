@@ -14,6 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ModalContext } from '../../contexts/ModalContext';
 import { DashboardProvider } from '../../contexts/DashboardContext';
 import {useSelector} from 'react-redux'
+import Toast from 'react-native-toast-message';
 const Tab = createBottomTabNavigator();
 
 const Dashboard: React.FC = () => {
@@ -31,6 +32,7 @@ const Dashboard: React.FC = () => {
           </TouchableOpacity>
         </Header>
       </Container>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
       <NavigationContainer independent={true}>
       <Tab.Navigator
         screenOptions={({route}) => ({
