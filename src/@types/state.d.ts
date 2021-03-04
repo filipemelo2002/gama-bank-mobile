@@ -1,4 +1,5 @@
 interface State {
   auth: AuthInitialState,
-  dashboard: IDashboardState
+  dashboard: IDashboardState,
+  planning: PlanningState;
 }
