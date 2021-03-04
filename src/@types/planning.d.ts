@@ -28,7 +28,7 @@ type PlanningData = Planning;
 
 interface PlanningTransactionData {
   conta: number | undefined;
-  contaDestino: string;
+  contaDestino?: string;
   data: string;
   descricao: string;
   login: string;
