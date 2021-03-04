@@ -12,17 +12,28 @@ import Icon from 'react-native-vector-icons/Feather';
 import { ModalContext } from '../../contexts/ModalContext';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {useSelector, useDispatch} from 'react-redux'
+import { useNavigation } from '@react-navigation/native';
+
 import * as Creators from '../../redux/action/dashboard'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const UserDrawer: React.FC = () => {
   const dispatch = useDispatch()
   const { closeModal } = useContext(ModalContext);
   const { usuario } = useSelector((state:State)=> state.auth)
   const {plans} = useSelector((state:State)=>  state.dashboard)
+  const navigator = useNavigation();
 
   useEffect(() => {
     dispatch(Creators.getPlans(usuario.login))
   }, []);
 
+  const handleSingOut = async () => {
+    await AsyncStorage.clear()
+    dispatch({
+      type: "RESET"
+    })
+    navigator.navigate('signin');
+  }
   return (
     <Container>
       <DrawerContainer>
@@ -53,6 +64,11 @@ const UserDrawer: React.FC = () => {
           <Label>Você tem</Label>
           <UserInfoText>{plans.length} planos de conta</UserInfoText>
         </TextContainer>
+        <Divider />
+        <TouchableOpacity onPress={handleSingOut} style={{flexDirection: "row", alignItems: "center"}}>
+          <Icon name="power" color="#8c52E5" size={33} style={{marginRight: 10}}/>
+          <UserInfoText>Sair</UserInfoText>
+        </TouchableOpacity>
       </DrawerContainer>
     </Container>
   );
