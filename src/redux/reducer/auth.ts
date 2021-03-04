@@ -24,6 +24,8 @@ const initialState = (): AuthInitialState => ({
   token: '',
   error: false,
   loading: false,
+  dataInicio: "",
+  dataFim: ""
 });
 
 type Action = AuthSuccess | AuthPending | AuthRejected | AuthChangePassword;

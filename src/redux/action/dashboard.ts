@@ -12,6 +12,20 @@ export const rejected = (error: string) => ({
   payload: error
 })
 
+export const loadData = (data: IDashboardQueryData)  => {
+  return async (dispatch: Redux.Dispatch) => {
+    try {
+      dispatch<IDashboardPending>(pending())
+      const response  = await Api.loadData(data)
+      dispatch<IDashboardSuccess>({
+        type: `${TEMPLATE_NAME}_SUCCESS`,
+        payload: response
+      })
+    } catch (err) {
+      dispatch<IDashboardRejected>(rejected(err))
+    }
+  }
+}
 
 export const getPlans = (login: string) => {
   return async (dispatch: Redux.Dispatch) => {

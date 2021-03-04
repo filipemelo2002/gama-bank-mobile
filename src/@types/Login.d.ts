@@ -32,6 +32,8 @@ interface IUserData {
     descricao: string;
   };
   token: string;
+  dataInicio: string;
+  dataFim: string;
 }
 
 interface ILoginProviderProps {

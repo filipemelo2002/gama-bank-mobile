@@ -4,19 +4,19 @@ const initialState = () : IDashboardState => ({
   contaBanco: {
     id: undefined,
     lancamentos: [] as ILancamentosData[],
-    saldo: '',
+    saldo: 0,
   },
   contaCredito: {
     id: undefined,
     lancamentos: [] as ILancamentosData[],
-    saldo: '',
+    saldo: 0,
   },
   plans: [],
   loading: false,
   error: false,
 })
 
-type Action = IDashboardPlansSuccess | IDashboardPending | IDashboardRejected;
+type Action = IDashboardPlansSuccess | IDashboardSuccess | IDashboardPending | IDashboardRejected;
 
 const reducer = (state = initialState(), action: Action): IDashboardState => {
   switch (action.type) {
@@ -27,19 +27,21 @@ const reducer = (state = initialState(), action: Action): IDashboardState => {
         error: false,
       };
     }
-    // case `${TEMPLATE_NAME}_SUCCESS`: {
-    //   const { payload } = action;
-    //   return {
-    //     ...state,
-    //     error: false,
-    //     loading: false,
-    //   };
-    // }
+    case `${TEMPLATE_NAME}_SUCCESS`: {
+      const { payload } = action as IDashboardSuccess;
+      return {
+        ...state,
+        contaBanco: payload.contaBanco,
+        contaCredito: payload.contaCredito,
+        error: false,
+        loading: false,
+      };
+    }
     case `${TEMPLATE_NAME}_PLANS_SUCCESS`: {
       const { payload } = action as IDashboardPlansSuccess;
       return {
         ...state,
-        ...payload,
+        plans: payload,
         error: false,
         loading: false,
       };

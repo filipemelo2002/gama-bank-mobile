@@ -23,19 +23,19 @@ interface ILancamentosData {
     descricao: string;
   };
   tipo: 'R' | 'D';
-  valor: string;
+  valor: number;
 }
 
 interface IAccountData {
   contaBanco: {
     id: number | undefined;
     lancamentos: ILancamentosData[];
-    saldo: string;
+    saldo: number;
   };
   contaCredito: {
     id: number | undefined;
     lancamentos: ILancamentosData[];
-    saldo: string;
+    saldo: number;
   };
 }
 
@@ -44,10 +44,20 @@ interface IDashboardState extends IAccountData, IPlansContextData {
   error: boolean;
 }
 
+interface IDashboardQueryData {
+  fim: string;
+  inicio: string;
+  login: string;
+}
 
 interface IDashboardPlansSuccess {
   type: string;
   payload: IPlansData[];
+}
+
+interface IDashboardSuccess {
+  type: string;
+  payload: IAccountData
 }
 
 interface IDashboardPending {
