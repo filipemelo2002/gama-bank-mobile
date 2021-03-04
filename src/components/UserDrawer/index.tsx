@@ -28,10 +28,11 @@ const UserDrawer: React.FC = () => {
   }, []);
 
   const handleSingOut = async () => {
-    await AsyncStorage.clear()
+    await AsyncStorage.clear();
     dispatch({
       type: "RESET"
-    })
+    });
+    closeModal();
     navigator.navigate('signin');
   }
   return (
