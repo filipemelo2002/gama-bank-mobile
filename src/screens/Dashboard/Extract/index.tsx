@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 import { KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-
+import {useSelector} from 'react-redux'
 import { 
   Container,
   Content,
@@ -15,7 +15,14 @@ import {
 } from './style';
 
 const Extract: React.FC = () => {
-
+  const { contaBanco, contaCredito } = useSelector((state:State)=>state.dashboard)
+  function formatPrice(value:number) {
+    
+    return Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  }
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -32,35 +39,25 @@ const Extract: React.FC = () => {
               <HeaderTitle>Últimos lançamentos</HeaderTitle>
             </HeaderContent>
             <DividerVertical />
-            <BalanceDetails>
-              <BalanceText type="outcome">- R$ 22,50</BalanceText>
-              <InformationText>11 de Fev.</InformationText>
-            </BalanceDetails>
-            <DividerVertical />
-            <BalanceDetails>
-              <BalanceText type="outcome">- R$ 22,50</BalanceText>
-              <InformationText>11 de Fev.</InformationText>
-            </BalanceDetails>
-            <DividerVertical />
-            <BalanceDetails>
-              <BalanceText type="income">R$ 22,50</BalanceText>
-              <InformationText>11 de Fev.</InformationText>
-            </BalanceDetails>
-            <DividerVertical />
-            <BalanceDetails>
-              <BalanceText type="outcome">- R$ 22,50</BalanceText>
-              <InformationText>11 de Fev.</InformationText>
-            </BalanceDetails>
-            <DividerVertical />
-            <BalanceDetails>
-              <BalanceText type="income">R$ 22,50</BalanceText>
-              <InformationText>11 de Fev.</InformationText>
-            </BalanceDetails>
-            <DividerVertical />
-            <BalanceDetails>
-              <BalanceText type="income">R$ 22,50</BalanceText>
-              <InformationText>11 de Fev.</InformationText>
-            </BalanceDetails>
+            {
+              contaBanco.lancamentos.map(lancamento => (
+                <BalanceDetails key={String(lancamento.id)}>
+                  <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>- {formatPrice(lancamento.valor)}</BalanceText>
+                  <InformationText>{lancamento.data}</InformationText>
+                  <DividerVertical />
+                </BalanceDetails>
+              ))
+            }
+
+            {
+              contaCredito.lancamentos.map(lancamento => (
+                <BalanceDetails key={String(lancamento.id)}>
+                  <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>- {formatPrice(lancamento.valor)}</BalanceText>
+                  <InformationText>{lancamento.data}</InformationText>
+                  <DividerVertical />
+                </BalanceDetails>
+              ))
+            }
           </Content>
        </Container>
       </ScrollView>

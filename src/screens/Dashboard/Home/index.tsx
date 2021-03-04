@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { ActivityIndicator, StatusBar } from 'react-native';
+import React, { useCallback, useEffect } from 'react';
+import { ActivityIndicator, RefreshControl, StatusBar } from 'react-native';
 import { KeyboardAvoidingView, ScrollView, Platform, View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {useSelector, useDispatch} from 'react-redux'
@@ -29,16 +29,18 @@ const Home: React.FC = () => {
     }).format(value);
   }
 
-  useEffect(()=> {
+  const loadData = useCallback(()=>{
     disptach(Creators.loadData({
       login: usuario.login,
       fim: dataFim.split('T')[0],
       inicio: dataInicio.split('T')[0]
     }))
-  }, [])
-  useEffect(()=>{
     disptach(Creators.getPlans(usuario.login))
-  },[])
+  }, [])
+
+  useEffect(()=> {
+    loadData()
+  }, [loadData])
 
   const incoming = () => {
     const incominArray = contaBanco.lancamentos.filter(lancamentos=>lancamentos.tipo==="R")
@@ -56,13 +58,13 @@ const Home: React.FC = () => {
     const sumValues: number = incominArray.reduce((sum, current)=> current.valor + sum, 0)
     return sumValues
   }
-  if(loading){
-    return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: "center"}}>
-        <ActivityIndicator size='large' color="#fff"/>
-      </View>
-    )
-  }
+  // if(loading){
+  //   return (
+  //     <View style={{flex: 1, alignItems: 'center', justifyContent: "center"}}>
+  //       <ActivityIndicator size='large' color="#fff"/>
+  //     </View>
+  //   )
+  // }
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -70,6 +72,9 @@ const Home: React.FC = () => {
       enabled
     >
       <ScrollView style={{ paddingTop: StatusBar.currentHeight }}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={loadData}/>
+        }
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
       >
        <Container>
