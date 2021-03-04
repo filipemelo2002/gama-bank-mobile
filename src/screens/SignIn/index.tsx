@@ -1,9 +1,9 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, StatusBar, KeyboardAvoidingView, ScrollView, Platform, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/Feather';
-
+import { useSelector, useDispatch } from 'react-redux';
 import { 
   Container, 
   Content, 
@@ -16,27 +16,21 @@ import {
   LinkText } from './style';
 
 import logoGamaBank from '../../images/gamabank.png';
-import { LoginContext } from '../../contexts/LoginContext';
-
+import * as Creators from '../../redux/action/login'
+import { showError } from '../../services/showToast';
 const SignIn: React.FC = () => {
+  const dispatch = useDispatch()
+
   const navigator = useNavigation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const { loginUser } = useContext(LoginContext);
+  const { token, loading } = useSelector((state:State) => state.auth)
 
   async function handleSubmit() {
-    setIsLoading(true);
 
     if(username === '' || password === ''){
-      Toast.show({
-        type: 'error',
-        text1: '',
-        text2: 'Preencha corretamente os campos',
-        topOffset: 60,
-      });
+      showError("Por favor, preencha todos os campos!")
 
-      setIsLoading(false);
       return;
     }
 
@@ -46,23 +40,9 @@ const SignIn: React.FC = () => {
     }
 
     try {
-      const response = await loginUser(postData);
-      if(response){
-      setUsername('');
-      setPassword('');
-      setIsLoading(false);
-      navigator.navigate('dashboard');
-      } else {
-        throw new Error();
-      }
-
+      dispatch(Creators.signIn(postData))
     }catch(err) {
-      Toast.show({
-        type: 'error',
-        text1: '',
-        text2: 'Ocorreu um erro tente novamente mais tarde',
-      });
-      setIsLoading(false);
+      showError("Ops, usuário ou senha incorretos. Tente novamente!")
     }
 
   }
@@ -75,6 +55,11 @@ const SignIn: React.FC = () => {
     navigator.navigate('signup');
   }, []);
 
+  useEffect(()=>{
+    if(token.length>0){
+      navigator.navigate('dashboard');
+    }
+  }, [token])
   return (
     <>
       <KeyboardAvoidingView
@@ -106,8 +91,8 @@ const SignIn: React.FC = () => {
                   onChangeText={text => setPassword(text)}
                 />
               </InputContainer>
-              <Button onPress={handleSubmit} disabled={isLoading}>
-                {isLoading 
+              <Button onPress={handleSubmit} disabled={loading}>
+                {loading 
                   ? (<ActivityIndicator size="small" color="#8C52E5" style={{flex: 1, alignSelf: 'center'}} />) 
                   : (
                     <>

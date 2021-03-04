@@ -46,6 +46,12 @@ export const Input = styled.TextInput`
   font-size: 14px;
 `;
 
+export const Picker = styled.Picker`
+  flex: 1;
+  color: #878686;
+  font-size: 14px;
+`;
+
 export const Button = styled.TouchableOpacity`
 flex-direction: row;
   align-items: center;

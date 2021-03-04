@@ -12,27 +12,26 @@ import Plans from './Plans';
 import UserDrawer from '../../components/UserDrawer';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ModalContext } from '../../contexts/ModalContext';
-import { DashboardProvider } from '../../contexts/DashboardContext';
-import { LoginContext } from '../../contexts/LoginContext';
-
+import {useSelector} from 'react-redux'
+import Toast from 'react-native-toast-message';
 const Tab = createBottomTabNavigator();
 
 const Dashboard: React.FC = () => {
   const { isModalOpen, openModal } = useContext(ModalContext);
-  const { user } = useContext(LoginContext);
+  const {usuario} = useSelector((state:State)=> state.auth);
 
   return (
     <>
-    <DashboardProvider>
       {isModalOpen && <UserDrawer />}
       <Container>
         <Header>
-          <Title>Olá, {user.usuario.nome}</Title>
+          <Title>Olá, {usuario.nome}</Title>
           <TouchableOpacity onPress={openModal}>
             <Icon name="user" size={33} color="#FFF" />
           </TouchableOpacity>
         </Header>
       </Container>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
       <NavigationContainer independent={true}>
       <Tab.Navigator
         screenOptions={({route}) => ({
@@ -93,7 +92,6 @@ const Dashboard: React.FC = () => {
         <Tab.Screen name="plans" component={Plans} options={{tabBarLabel: 'Planos'}} />
       </Tab.Navigator>
     </NavigationContainer>
-    </DashboardProvider>
     </>
   );
 }

@@ -17,17 +17,16 @@ import {
   LinkText } from './style';
 
 import logoGamaBank from '../../images/gamabank.png';
-import api from '../../services/api';
-
+import * as Creators from '../../redux/action/login'
+import { useSelector, useDispatch} from 'react-redux'
 const RecoveryPassword: React.FC = () => {
+  const dispatch = useDispatch()
   const navigator = useNavigation();
   const [username,setUsername] = useState('');
   const [password,setPassword] = useState('');
   const [confirmPassword,setConfirmPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
+  const {loading} = useSelector((state: State)=> state.auth)
   async function handleSubmit() {
-    setIsLoading(true);
 
     if (username === '' || password === '') {
       Toast.show({
@@ -37,7 +36,6 @@ const RecoveryPassword: React.FC = () => {
         topOffset: 60,
       });
 
-      setIsLoading(false);
       return;
     }
 
@@ -49,35 +47,21 @@ const RecoveryPassword: React.FC = () => {
         topOffset: 60,
       });
       
-      setIsLoading(false);
       return;
     }
 
-    const postDataNovaSenha = {
-      email: 'fake@mail.com',
-      login: username,
-    };
-
     const postDataAlteraSenha = {
-      senha: password,
-      usuario: username,
+      password,
+      userName: username,
     };
 
     try{
-      const response = await api.post('nova-senha', postDataNovaSenha);
-      await api.post(`altera-senha?senhaTemporaria=${response.data}`, postDataAlteraSenha)
+      await dispatch(Creators.forgotPassword(postDataAlteraSenha))
       setUsername('');
       setPassword('');
       setConfirmPassword('');
-      setIsLoading(false);
       navigator.navigate('signin');
     }catch(err){
-      Toast.show({
-        type: 'error',
-        text1: '',
-        text2: 'Ocorreu um erro tente novamente mais tarde',
-      });
-      setIsLoading(false);
     }
   };
 
@@ -129,8 +113,8 @@ const RecoveryPassword: React.FC = () => {
                   onChangeText={text => setConfirmPassword(text)}
                 />
               </InputContainer>
-              <Button onPress={handleSubmit} disabled={isLoading}>
-                {isLoading 
+              <Button onPress={handleSubmit} disabled={loading}>
+                {loading 
                   ? (<ActivityIndicator size="small" color="#8C52E5" style={{flex: 1, alignSelf: 'center'}} />) 
                   : (
                     <>

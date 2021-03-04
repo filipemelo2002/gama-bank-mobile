@@ -1,14 +1,6 @@
 import React, { createContext, ReactNode, useState } from 'react';
 
-interface IModalContextData {
-  isModalOpen: boolean;
-  openModal: () => void;
-  closeModal: () => void;
-}
 
-interface IModalProviderProps {
-  children: ReactNode;
-}
 
 export const ModalContext = createContext({} as IModalContextData);
 
