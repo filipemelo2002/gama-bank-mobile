@@ -4,6 +4,8 @@ import { KeyboardAvoidingView, ScrollView, Platform, View, Text } from 'react-na
 import Icon from 'react-native-vector-icons/Feather';
 import {useSelector, useDispatch} from 'react-redux'
 // require("intl/locale-data/jsonp/pt-BR");
+import 'intl';
+import 'intl/locale-data/jsonp/en';
 import { 
   Container,
   Content,
@@ -30,10 +32,15 @@ const Home: React.FC = () => {
   }
 
   const loadData = useCallback(()=>{
+    const now = new Date();
+    const fim = now.toISOString().split('T')[0];
+    now.setDate(now.getDate() - 30);
+    const inicio = now.toISOString().split('T')[0];    
+
     disptach(Creators.loadData({
       login: usuario.login,
-      fim: dataFim.split('T')[0],
-      inicio: dataInicio.split('T')[0]
+      fim,
+      inicio,
     }))
     disptach(Creators.getPlans(usuario.login))
   }, [])
@@ -95,6 +102,8 @@ const Home: React.FC = () => {
             <InformationText margin={{top: 32}} >Tipo do plano: Receita</InformationText>
             <BalanceText type="income" margin={{top: 8}}>{formatPrice(incoming())}</BalanceText>
 
+            {/* <DividerHorizontal /> */}
+
             <InformationText margin={{top: 32}} >Tipo do plano: Despesa</InformationText>
             <BalanceText type="outcome" margin={{top: 8}}>{formatPrice(outcome())}</BalanceText>
 
@@ -104,14 +113,14 @@ const Home: React.FC = () => {
               <Icon name="dollar-sign" size={16} color="#9B9B9B" />
               <HeaderTitle>Últimos lançamentos</HeaderTitle>
             </HeaderContent>
-            <DividerVertical />
+            {/* <DividerVertical /> */}
 
             {
               contaBanco.lancamentos.map(lancamento => (
                 <BalanceDetails key={String(lancamento.id)}>
+                  <DividerVertical />
                   <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>- {formatPrice(lancamento.valor)}</BalanceText>
                   <InformationText>{lancamento.data}</InformationText>
-                  <DividerVertical />
                 </BalanceDetails>
               ))
             }
@@ -119,9 +128,9 @@ const Home: React.FC = () => {
             {
               contaCredito.lancamentos.map(lancamento => (
                 <BalanceDetails key={String(lancamento.id)}>
+                  <DividerVertical />
                   <BalanceText type={lancamento.tipo==="R"?"income":"outcome"}>- {formatPrice(lancamento.valor)}</BalanceText>
                   <InformationText>{lancamento.data}</InformationText>
-                  <DividerVertical />
                 </BalanceDetails>
               ))
             }
